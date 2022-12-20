@@ -2,6 +2,10 @@
 
 // selectors
 
+export const choosenTable = (tables, tableId) => {
+  return tables.find(table => table.id === tableId);
+};
+
 // action names
 
 const createActionName = name => `app/tables/${name}`;

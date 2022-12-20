@@ -10,7 +10,12 @@ const TablesList = () => {
     <section>
       <h2>Tables</h2>
       <ul>
-        {tables.map( table => <li key={table.id}>Table {table.id}<Link to={`/table/${table.id}`}>Show more</Link></li>)}
+        {tables.map(
+          table => 
+          <li key={table.id}>Table {table.id} Status: {table.status}
+            <Link to={`/table/${table.id}`}>Show more</Link>
+          </li>
+        )}
       </ul>
     </section>
   )
