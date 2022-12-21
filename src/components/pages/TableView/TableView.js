@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { choosenTable } from '../../../redux/tablesReducer';
+import { Container, Button, Row, Col } from 'react-bootstrap';
+import clsx from 'clsx';
 
 const TableView = () => {
 
@@ -25,25 +27,44 @@ const TableView = () => {
   // jego zadanie to przekazywanie nowych danych wprowadzonych przez użytkownika, zmieniają one dane na serwerze
   
   return(
-    <section>
-      <h2>Table</h2>
+    <Container className={clsx('m-1', 'p-0', 'h-100')}>
+      <h1 className={clsx('fs-2', 'my-3')}>Table</h1>
       <form>
-        Status
-        <select>
-          <option value="busy">Busy</option>
-          <option value="free">Free</option>
-          <option value="reserved">Reserved</option>
-          <option value="cleaning">Cleaning</option>
-        </select>
-        People
-        <input type="text"></input>
-        /
-        <input type="text"></input>
-        Bill 
-        $ <input type="text"></input>
-        <button>Update</button>
+        <Row className={clsx('mb-3')}>
+          <Col className={clsx('col-1')}>
+            <label for="status" className={clsx('form-label', 'fw-bold')}>Status:</label>
+          </Col>
+          <Col className={clsx('col-2')}>
+            <select id="status" className={clsx('form-select')} aria-describedby="selectTableStatus">
+              <option value="busy">Busy</option>
+              <option value="free">Free</option>
+              <option value="reserved">Reserved</option>
+              <option value="cleaning">Cleaning</option>
+            </select>
+          </Col>
+        </Row>
+        <Row className={clsx('mb-3')}>
+          <Col className={clsx('col-1')}>
+            <label for="guests" className={clsx('form-label', 'fw-bold')}>Guests:</label>
+          </Col>
+          <Col className={clsx('col-2', 'd-flex')}>
+            <input type="text" id="guests" className={clsx('form-control')} aria-describedby="amountOfGuests"></input>
+            <span className={clsx('mx-2')}> / </span>
+            <input type="text" className={clsx('form-control')} aria-describedby="maxAmountOfGuests"></input>
+          </Col>
+        </Row>
+        <Row className={clsx('mb-3')}>
+          <Col className={clsx('col-1')}>
+            <label for="bill" className={clsx('form-label', 'fw-bold')}>Bill:</label>
+          </Col>
+          <Col className={clsx('col-2', 'd-flex')}>
+            <span className={clsx('me-2')}>$</span>
+            <input type="text" className={clsx('form-control')} aria-describedby="bill"></input>
+          </Col>
+        </Row>
+        <Button>Update</Button>
       </form>
-    </section>
+    </Container>
   )
 };
 

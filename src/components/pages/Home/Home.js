@@ -1,10 +1,12 @@
 import TablesList from "../../features/TablesList/TablesList";
+import { Container } from 'react-bootstrap';
+import clsx from 'clsx';
 
 const Home = () => {
   return (
-  <div>
-    <TablesList />
-  </div>
+    <Container className={clsx('m-1', 'p-0', 'h-100')}>
+      <TablesList />
+    </Container>
   );
 };
 
