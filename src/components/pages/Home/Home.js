@@ -5,7 +5,7 @@ const Home = () => {
   <div>
     <TablesList />
   </div>
-  )
-}
+  );
+};
 
 export default Home;

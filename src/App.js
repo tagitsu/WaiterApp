@@ -7,13 +7,14 @@ import NonFound from "./components/pages/NonFound/NonFound";
 import { Routes, Route } from 'react-router-dom';
 import TopBar from "./components/views/TopBar/TopBar";
 import Footer from "./components/views/Footer/Footer";
+import Container from 'react-bootstrap/Container';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect( () => dispatch(fetchTables()), [dispatch]);
 
   return(
-    <main>
+    <Container>
       <TopBar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -21,7 +22,7 @@ const App = () => {
           <Route path="*" element={<NonFound />} />
         </Routes>
       <Footer />
-    </main>
+    </Container>
     
   );
 };
