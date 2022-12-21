@@ -6,6 +6,10 @@ export const choosenTable = (tables, tableId) => {
   return tables.find(table => table.id === tableId);
 };
 
+export const tableStatus = (table, option ) => {
+  if(table.status === option.value) {console.log()}
+};
+
 // action names
 
 const createActionName = name => `app/tables/${name}`;
