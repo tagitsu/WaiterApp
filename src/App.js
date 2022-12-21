@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchTables } from "./redux/tablesReducer";
-import Home from './components/Home/Home';
-import TableView from "./components/TableView/TableView";
-import NonFound from "./components/NonFound/NonFound";
+import Home from './components/pages/Home/Home'
+import TableView from "./components/pages/TableView/TableView";
+import NonFound from "./components/pages/NonFound/NonFound";
 import { Routes, Route } from 'react-router-dom';
-import TopBar from "./components/TopBar/TopBar";
-import Footer from "./components/Footer/Footer";
-import Hello from "./components/Hello/Hello";
+import TopBar from "./components/views/TopBar/TopBar";
+import Footer from "./components/views/Footer/Footer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,8 +16,7 @@ const App = () => {
     <main>
       <TopBar />
         <Routes>
-          <Route path="/" element={<Hello />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/table/:tableId" element={<TableView />} />
           <Route path="*" element={<NonFound />} />
         </Routes>

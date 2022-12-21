@@ -5,7 +5,7 @@ const TopBar = () => {
   <nav>
     <ul>
       <li key="1"><Link to="/">Waiter App</Link></li>
-      <li key="2"><Link to="/home">Home</Link></li>
+      <li key="2"><Link to="/">Home</Link></li>
     </ul>
   </nav>
  )

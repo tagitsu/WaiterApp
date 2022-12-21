@@ -1,4 +1,4 @@
-import TablesList from "../TablesList/TablesList";
+import TablesList from "../../features/TablesList/TablesList";
 
 const Home = () => {
   return (
