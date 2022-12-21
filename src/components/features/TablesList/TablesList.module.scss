@@ -1,0 +1,25 @@
+
+.table {
+  align-items: baseline;
+
+  &__name {
+    font-size: 24px;
+  }
+
+  &__status {
+    font-size: 18px;
+    margin-top: 16px;
+
+    &_name {
+      font-weight: 100;
+
+    }
+  }
+
+  &__button a {
+    color: white;
+    text-decoration: none;
+  }
+
+
+}

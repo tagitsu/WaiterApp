@@ -1,5 +1,9 @@
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import { Button, Container, Row, Col } from 'react-bootstrap';
+import styles from './TablesList.module.scss';
+import clsx from 'clsx';
+
 
 const TablesList = () => {
 
@@ -8,15 +12,21 @@ const TablesList = () => {
 
   return(
     <section>
-      <h2>Tables</h2>
-      <ul>
+      <h2>All Tables</h2>
+      <Container className="container-fluid">
         {tables.map(
           table => 
-          <li key={table.id}>Table {table.id} Status: {table.status}
-            <Link to={`/table/${table.id}`}>Show more</Link>
-          </li>
+            <Row key={table.id} className={clsx(styles.table, 'aligh-items-end', 'border-bottom')}>
+              <Col className={clsx(styles.table__name,'col-lg-2')}>Table {table.id}</Col>
+              <Col className={clsx(styles.table__status)}><p>Status:<span className={styles.table__status_name}> {table.status}</span></p></Col>
+              <Col className={clsx(styles.table__button, 'col-lg-2')}>
+                <Button>
+                  <Link to={`/table/${table.id}`}>Show more</Link>
+                </Button>
+              </Col>
+            </Row>
         )}
-      </ul>
+      </Container>
     </section>
   )
 }
