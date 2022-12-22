@@ -16,7 +16,7 @@ const TablesList = () => {
           table => 
             <Row key={table.id} className={clsx('align-items-baseline', 'mx-auto', 'border-bottom', 'my-2', 'p-0')}>
               <Col className={clsx('col-lg-2', 'fs-5', 'p-0')}>Table {table.id}</Col>
-              <Col className={clsx('fs-5')}><p>Status:<span className={clsx('fw-light')}>{table.status}</span></p></Col>
+              <Col className={clsx('fs-5')}><p>Status: <span className={clsx('fw-light')}>{table.status}</span></p></Col>
               <Col className={clsx('col-lg-2', 'text-end', 'p-0')}>
                 <Button>
                   <Link to={`/table/${table.id}`} className={clsx('text-light', 'text-decoration-none')}>Show more</Link>
