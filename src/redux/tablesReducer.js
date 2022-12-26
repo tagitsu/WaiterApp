@@ -30,8 +30,9 @@ export const fetchTables = () => {
 
 const updateForm = payload => ({ type: UPDATE_FORM, payload });
 export const getInputsValues = () => {
-  return (dispatch, table) => {
+  return (table, dispatch) => {
     dispatch(updateForm(table))
+    console.log('jaki payload przesyłam do updateForm', table);
   }
 }
 // funkcja ma wpisane przez użytkownika wartości danego stolika
@@ -43,8 +44,8 @@ const tablesReducer = (statePart = [], action) => {
   switch(action.type) {
     case UPDATE_TABLES: 
       return [...action.payload]
-    case UPDATE_FORM: 
-      return statePart.map(table => (table.status !== action.payload) ? { ...table, status: (action.payload) } : table);
+    case UPDATE_FORM:
+      return [...statePart, action.payload]
     default:
       return statePart;
   }

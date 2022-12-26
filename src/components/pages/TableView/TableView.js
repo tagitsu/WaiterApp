@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { choosenTable, getInputsValues } from '../../../redux/tablesReducer';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button, Row, Col, Form } from 'react-bootstrap';
 import clsx from 'clsx';
 import { useState } from 'react';
 
@@ -10,35 +10,13 @@ const TableView = () => {
 
   const { tableId } = useParams();
   const table = useSelector(state => choosenTable(state.tables, tableId));
-  
-
-  // const dispatch = useDispatch();
-  // useEffect( () => dispatch(fetchTables()), [dispatch]);
-
-  // dzialanie formularza przy zmianie statusu stolika
-  
+  console.log('to jest state.tables', table);
   const [ status, setStatus ] = useState(table.status);
+  console.log('co jest w stanie status', status);
   const [ guests, setGuests ] = useState(table.peopleAmount);
   const [ bill, setBill ] = useState(table.bill);
-  console.log('stan wyjściowy', status, guests, bill);
-
-  // const updateInputsValues = (newStatus) => {
-  //   if(newStatus === 'busy') {
-  //   console.log('zajęty')
-  //   setGuests(table.peopleAmount);
-  //   setBill(table.bill);
-  //   }
-  //   if(newStatus === 'free' || newStatus === 'cleaning') {
-  //     console.log('wolny/czyszczenie');
-  //     setGuests(0);
-  //     setBill(0);
-  //   }
-  //   if(newStatus === 'reserved') {
-  //     console.log('zarezerwowany');
-  //     setGuests(table.peopleAmount);
-  //     setBill(20);
-  //   }
-  // }
+  const newTableState = { ...table, status: status, peopleAmount: guests, bill: bill };
+  console.log('nowe dane stolika', newTableState);
 
   // funkcja powinna w zależności od wybranego statusu stolika zmieniać 
   // niektóre wartości inputów
@@ -61,10 +39,6 @@ const TableView = () => {
     }
   }
 
-  console.log('po zmianie', status, guests, bill);
-
-  console.log('table z serwera', table);
-  
   const changeGuestsValue = (event) => {
     setGuests(event.target.value)
   };
@@ -73,21 +47,18 @@ const TableView = () => {
     setBill(event.target.value)
   };
 
-
   // TODO 
 
-  // wartość atrybutu value w select i inputach zależy od właściwości wybranego stolika ale nie może być zmieniana
-  // jak można edytować te dane w inputach/select
-  // tak aby nowe wartości przekazać na serwer
-  
   // przycisk Update
   // jego zadanie to przekazywanie nowych danych wprowadzonych przez użytkownika, zmieniają one dane na serwerze
   
+  console.log('stan stolika serwer', table);
+  console.log('stan stolika lokalny', tableId, status, guests, bill);
   return(
     <Container className={clsx('m-1', 'p-0', 'h-100')}>
       <h1 className={clsx('fs-2', 'my-3')}>Table {table.id}</h1>
-      <form>
-        <Row className={clsx('mb-3')}>
+      <Form>
+        <Row className={clsx('mb-3', 'align-items-baseline')}>
           <Col className={clsx('col-2')}>
             <label htmlFor="status" className={clsx('form-label', 'fw-bold')}>Status:</label>
           </Col>
@@ -106,11 +77,11 @@ const TableView = () => {
             </select>
           </Col>
         </Row>
-        <Row className={clsx('mb-3')}>
+        <Row className={clsx('mb-3', 'align-items-baseline')}>
           <Col className={clsx('col-2')}>
             <label htmlFor="guests" className={clsx('form-label', 'fw-bold')}>Guests:</label>
           </Col>
-          <Col className={clsx('col-4', 'd-flex')}>
+          <Col className={clsx('col-4', 'd-flex', 'align-items-baseline')}>
             <input 
             type="text" 
             value={guests} 
@@ -123,12 +94,12 @@ const TableView = () => {
             <input type="text" defaultValue={table.maxPeopleAmount} id="maxGuests" className={clsx('form-control')} aria-describedby="maxAmountOfGuests"></input>
           </Col>
         </Row>
-        <Row className={clsx('mb-3')}>
+        <Row className={clsx('mb-3', 'align-items-baseline')}>
           <Col className={clsx('col-2')}>
             <label htmlFor="bill" className={clsx('form-label', 'fw-bold')}>Bill:</label>
           </Col>
-          <Col className={clsx('col-4', 'd-flex')}>
-            <span className={clsx('me-2')}>$</span>
+          <Col className={clsx('col-4', 'd-flex', 'align-items-baseline')}>
+            <span className={clsx('me-2')}> $</span>
             <input 
             type="text" 
             value={bill} 
@@ -138,8 +109,8 @@ const TableView = () => {
             />
           </Col>
         </Row>
-        <Button onClick={() => dispatch(getInputsValues(dispatch))}>Update</Button>
-      </form>
+        <Button onClick={() => dispatch(getInputsValues(newTableState, dispatch))}>Update</Button>
+      </Form>
     </Container>
   )
 };
