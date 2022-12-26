@@ -22,6 +22,11 @@ export const fetchTables = () => {
       .then(tables => dispatch(updateTables(tables)))
   }
 };
+// funkcja zawarta z funkcji fetchTables 
+// (wywoływana przy renderowaniu aplikacji) pobiera z serwera 
+// informacje o stolikach (tables)
+// i w formie tablicy (tables) przekazuje je (payload) do subreducera
+
 
 const updateForm = payload => ({ type: UPDATE_FORM, payload });
 export const getInputsValues = () => {
@@ -29,6 +34,10 @@ export const getInputsValues = () => {
     dispatch(updateForm(table))
   }
 }
+// funkcja ma wpisane przez użytkownika wartości danego stolika
+// przekazywać na serwer podmieniając dotychczasowe wartości
+// np. użytkowinik wpisuje: 2 gości przy stoliku 1 (było 3), robi naciska Update
+// inofmacja o 3 gościach przy stolkiu 1 zostaje zamieniona na 2
 
 const tablesReducer = (statePart = [], action) => {
   switch(action.type) {

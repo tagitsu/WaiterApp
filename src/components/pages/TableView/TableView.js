@@ -40,19 +40,39 @@ const TableView = () => {
   //   }
   // }
 
+  // funkcja powinna w zależności od wybranego statusu stolika zmieniać 
+  // niektóre wartości inputów
+  // np. przy statusie free, bill 0, guest 0, itd.
   const handleChangeStatus = e => {
     e.preventDefault();
-    console.log('target.value', e.target.value);
+    console.log('target.value', e.target.value); // string z wartością statusu
     setStatus(e.target.value);
-    dispatch(getInputsValues(e.target.value, dispatch));
-    
+    if(e.target.value === 'free' || e.target.value === 'cleaning') {
+      setBill(0);
+      setGuests(0);
+    }
+    if(e.target.value === 'busy') {
+      setBill(table.bill);
+      setGuests(table.peopleAmount);
+    }
+    if(e.target.value === 'reserved') {
+      setBill(20);
+      setGuests(table.peopleAmount);
+    }
   }
 
   console.log('po zmianie', status, guests, bill);
 
   console.log('table z serwera', table);
   
-  
+  const changeGuestsValue = (event) => {
+    setGuests(event.target.value)
+  };
+
+  const changeBillValue = (event) => {
+    setBill(event.target.value)
+  };
+
 
   // TODO 
 
@@ -72,7 +92,13 @@ const TableView = () => {
             <label htmlFor="status" className={clsx('form-label', 'fw-bold')}>Status:</label>
           </Col>
           <Col className={clsx('col-4')}>
-            <select id="status" defaultValue={status} className={clsx('form-select')} aria-describedby="selectTableStatus" onChange={handleChangeStatus}>
+            <select 
+              id="status" 
+              defaultValue={status} 
+              className={clsx('form-select')} 
+              aria-describedby="selectTableStatus" 
+              onChange={(e) => handleChangeStatus(e)}
+            >
               <option key="busy" value="busy">Busy</option>
               <option key="free" value="free">Free</option>
               <option key="reserved" value="reserved">Reserved</option>
@@ -85,7 +111,14 @@ const TableView = () => {
             <label htmlFor="guests" className={clsx('form-label', 'fw-bold')}>Guests:</label>
           </Col>
           <Col className={clsx('col-4', 'd-flex')}>
-            <input type="text" defaultValue={guests} id="guests" className={clsx('form-control')} aria-describedby="amountOfGuests"></input>
+            <input 
+            type="text" 
+            value={guests} 
+            id="guests" 
+            className={clsx('form-control')} 
+            aria-describedby="amountOfGuests" 
+            onChange={changeGuestsValue}
+            />
             <span className={clsx('mx-2')}> / </span>
             <input type="text" defaultValue={table.maxPeopleAmount} id="maxGuests" className={clsx('form-control')} aria-describedby="maxAmountOfGuests"></input>
           </Col>
@@ -96,10 +129,16 @@ const TableView = () => {
           </Col>
           <Col className={clsx('col-4', 'd-flex')}>
             <span className={clsx('me-2')}>$</span>
-            <input type="text" defaultValue={bill} className={clsx('form-control')} aria-describedby="bill"></input>
+            <input 
+            type="text" 
+            value={bill} 
+            className={clsx('form-control')} 
+            aria-describedby="bill" 
+            onChange={changeBillValue}
+            />
           </Col>
         </Row>
-        <Button>Update</Button>
+        <Button onClick={() => dispatch(getInputsValues(dispatch))}>Update</Button>
       </form>
     </Container>
   )
