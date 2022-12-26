@@ -68,10 +68,10 @@ const TableView = () => {
       <h1 className={clsx('fs-2', 'my-3')}>Table {table.id}</h1>
       <form>
         <Row className={clsx('mb-3')}>
-          <Col className={clsx('col-1')}>
+          <Col className={clsx('col-2')}>
             <label htmlFor="status" className={clsx('form-label', 'fw-bold')}>Status:</label>
           </Col>
-          <Col className={clsx('col-2')}>
+          <Col className={clsx('col-4')}>
             <select id="status" defaultValue={status} className={clsx('form-select')} aria-describedby="selectTableStatus" onChange={handleChangeStatus}>
               <option key="busy" value="busy">Busy</option>
               <option key="free" value="free">Free</option>
@@ -81,20 +81,20 @@ const TableView = () => {
           </Col>
         </Row>
         <Row className={clsx('mb-3')}>
-          <Col className={clsx('col-1')}>
+          <Col className={clsx('col-2')}>
             <label htmlFor="guests" className={clsx('form-label', 'fw-bold')}>Guests:</label>
           </Col>
-          <Col className={clsx('col-2', 'd-flex')}>
+          <Col className={clsx('col-4', 'd-flex')}>
             <input type="text" defaultValue={guests} id="guests" className={clsx('form-control')} aria-describedby="amountOfGuests"></input>
             <span className={clsx('mx-2')}> / </span>
             <input type="text" defaultValue={table.maxPeopleAmount} id="maxGuests" className={clsx('form-control')} aria-describedby="maxAmountOfGuests"></input>
           </Col>
         </Row>
         <Row className={clsx('mb-3')}>
-          <Col className={clsx('col-1')}>
+          <Col className={clsx('col-2')}>
             <label htmlFor="bill" className={clsx('form-label', 'fw-bold')}>Bill:</label>
           </Col>
-          <Col className={clsx('col-2', 'd-flex')}>
+          <Col className={clsx('col-4', 'd-flex')}>
             <span className={clsx('me-2')}>$</span>
             <input type="text" defaultValue={bill} className={clsx('form-control')} aria-describedby="bill"></input>
           </Col>
