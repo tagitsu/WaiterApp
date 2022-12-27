@@ -14,7 +14,7 @@ const TableView = () => {
 
   const [ status, setStatus ] = useState(table.status);
   const [ guests, setGuests ] = useState(table.guests);
-  const [ maxGuests, setMaxGuests ] = useState(table.maxGuests)
+  const [ maxGuests, setMaxGuests ] = useState(table.maxGuests);
   const [ bill, setBill ] = useState(table.bill);
 
   const handleChange = (e) => {
