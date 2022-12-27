@@ -67,6 +67,29 @@ export const removeTableRequest = (removingTable) => {
   }
 };
 
+const addTable = payload => ({ type: ADD_TABLE, payload });
+export const addTableRequest = (id) => {
+  return(dispatch) => {
+    const newTable = {
+      id: id,
+      status: 'free',
+      guests: 0,
+      maxGuests: 0,
+      bill: 0
+    };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTable),
+    };
+    fetch(`http://localhost:3131/tables/`, options)
+    .then((res) => res.json())
+    .then((data) => dispatch(addTable(newTable)));
+  }
+};
+
 
 
 const tablesReducer = (statePart = [], action) => {

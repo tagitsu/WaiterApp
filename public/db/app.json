@@ -22,11 +22,39 @@
       "id": "3"
     },
     {
-      "status": "cleaning",
+      "id": "6",
+      "status": "free",
       "guests": 0,
-      "maxGuests": 2,
-      "bill": 0,
-      "id": "5"
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "7",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "4",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "5",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "9",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
     }
   ]
 }
