@@ -11,7 +11,7 @@ export const choosenTable = (tables, tableId) => {
 const createActionName = name => `app/tables/${name}`;
 
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
-const UPDATE_FORM = createActionName('UPDATE_FORM');
+const UPDATE_TABLE = createActionName('UPDATE_TABLE');
 // action creators
 
 const updateTables = payload => ({ type: UPDATE_TABLES, payload});
@@ -28,24 +28,42 @@ export const fetchTables = () => {
 // i w formie tablicy (tables) przekazuje je (payload) do subreducera
 
 
-const updateForm = payload => ({ type: UPDATE_FORM, payload });
-export const getInputsValues = () => {
-  return (table, dispatch) => {
-    dispatch(updateForm(table))
-    console.log('jaki payload przesyłam do updateForm', table);
-  }
-}
+// const updateForm = payload => ({ type: UPDATE_TABLE, payload });
+// export const getInputsValues = () => {
+//   return (table, dispatch) => {
+//     console.log('reducers table', table);
+//     dispatch(updateForm(table))
+//     console.log('jaki payload przesyłam do updateForm', table);
+//   }
+//}
 // funkcja ma wpisane przez użytkownika wartości danego stolika
 // przekazywać na serwer podmieniając dotychczasowe wartości
 // np. użytkowinik wpisuje: 2 gości przy stoliku 1 (było 3), robi naciska Update
 // inofmacja o 3 gościach przy stolkiu 1 zostaje zamieniona na 2
 
+export const updateTable = payload => ({ type: UPDATE_TABLE, payload});
+export const updateTableRequest = (updatedTable, id) => {
+  return(dispatch) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedTable),
+    };
+    fetch(`http://localhost:3131/tables/${id}`, options)
+      .then(() => dispatch(updateTable(updatedTable)))
+  }
+}
+
+
+
 const tablesReducer = (statePart = [], action) => {
   switch(action.type) {
     case UPDATE_TABLES: 
       return [...action.payload]
-    case UPDATE_FORM:
-      return [...statePart, action.payload]
+    case UPDATE_TABLE:
+      return [...statePart, { id: statePart.length + 1, ...action.payload, }]
     default:
       return statePart;
   }

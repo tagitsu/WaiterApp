@@ -1,59 +1,51 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { choosenTable, getInputsValues } from '../../../redux/tablesReducer';
+import { useParams, useNavigate } from 'react-router-dom';
+import { choosenTable, updateTableRequest } from '../../../redux/tablesReducer';
 import { Container, Button, Row, Col, Form } from 'react-bootstrap';
 import clsx from 'clsx';
 import { useState } from 'react';
 
 const TableView = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { tableId } = useParams();
   const table = useSelector(state => choosenTable(state.tables, tableId));
-  console.log('to jest state.tables', table);
+
   const [ status, setStatus ] = useState(table.status);
-  console.log('co jest w stanie status', status);
-  const [ guests, setGuests ] = useState(table.peopleAmount);
+  const [ guests, setGuests ] = useState(table.guests);
+  const [ maxGuests, setMaxGuests ] = useState(table.maxGuests)
   const [ bill, setBill ] = useState(table.bill);
-  const newTableState = { ...table, status: status, peopleAmount: guests, bill: bill };
-  console.log('nowe dane stolika', newTableState);
 
-  // funkcja powinna w zależności od wybranego statusu stolika zmieniać 
-  // niektóre wartości inputów
-  // np. przy statusie free, bill 0, guest 0, itd.
-  const handleChangeStatus = e => {
+  const handleChange = (e) => {
     e.preventDefault();
-    console.log('target.value', e.target.value); // string z wartością statusu
-    setStatus(e.target.value);
-    if(e.target.value === 'free' || e.target.value === 'cleaning') {
-      setBill(0);
-      setGuests(0);
+    if(e.target.id === 'status') {
+      setStatus(e.target.value);
+      if(e.target.value === 'free' || e.target.value === 'cleaning') {
+        setBill(0);
+        setGuests(0);
+      } else if(e.target.value === 'busy') {
+        setBill(table.bill);
+        setGuests(table.guests);
+      } else if(e.target.value === 'reserved') {
+        setBill(20);
+        setGuests(table.guests);
+      }
+    } else if(e.target.id === 'guests') {
+      setGuests(e.target.value);
+    } else if(e.target.id === 'maxGuests') {
+      setMaxGuests(e.target.value);
+    } else if(e.target.id === 'bill') {
+      setBill(e.target.value);
     }
-    if(e.target.value === 'busy') {
-      setBill(table.bill);
-      setGuests(table.peopleAmount);
-    }
-    if(e.target.value === 'reserved') {
-      setBill(20);
-      setGuests(table.peopleAmount);
-    }
-  }
-
-  const changeGuestsValue = (event) => {
-    setGuests(event.target.value)
   };
 
-  const changeBillValue = (event) => {
-    setBill(event.target.value)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateTableRequest({ status, guests, maxGuests, bill }, tableId));
+    navigate('/');
   };
-
-  // TODO 
-
-  // przycisk Update
-  // jego zadanie to przekazywanie nowych danych wprowadzonych przez użytkownika, zmieniają one dane na serwerze
   
-  console.log('stan stolika serwer', table);
-  console.log('stan stolika lokalny', tableId, status, guests, bill);
   return(
     <Container className={clsx('m-1', 'p-0', 'h-100')}>
       <h1 className={clsx('fs-2', 'my-3')}>Table {table.id}</h1>
@@ -65,10 +57,9 @@ const TableView = () => {
           <Col className={clsx('col-4')}>
             <select 
               id="status" 
-              defaultValue={status} 
+              value={status} 
               className={clsx('form-select')} 
-              aria-describedby="selectTableStatus" 
-              onChange={(e) => handleChangeStatus(e)}
+              onChange={handleChange}
             >
               <option key="busy" value="busy">Busy</option>
               <option key="free" value="free">Free</option>
@@ -87,11 +78,16 @@ const TableView = () => {
             value={guests} 
             id="guests" 
             className={clsx('form-control')} 
-            aria-describedby="amountOfGuests" 
-            onChange={changeGuestsValue}
+            onChange={handleChange}
             />
             <span className={clsx('mx-2')}> / </span>
-            <input type="text" defaultValue={table.maxPeopleAmount} id="maxGuests" className={clsx('form-control')} aria-describedby="maxAmountOfGuests"></input>
+            <input 
+            type="text" 
+            value={maxGuests} 
+            id="maxGuests" 
+            className={clsx('form-control')} 
+            onChange={handleChange}
+            />
           </Col>
         </Row>
         <Row className={clsx('mb-3', 'align-items-baseline')}>
@@ -103,13 +99,13 @@ const TableView = () => {
             <input 
             type="text" 
             value={bill} 
+            id="bill"
             className={clsx('form-control')} 
-            aria-describedby="bill" 
-            onChange={changeBillValue}
+            onChange={handleChange}
             />
           </Col>
         </Row>
-        <Button onClick={() => dispatch(getInputsValues(newTableState, dispatch))}>Update</Button>
+        <Button type="submit" onClick={handleSubmit}>Update</Button>
       </Form>
     </Container>
   )
