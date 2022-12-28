@@ -15,7 +15,7 @@ const ADD_TABLE = createActionName('ADD_TABLE');
 
 // action creators
 
-const updateTables = payload => ({ type: UPDATE_TABLES, payload});
+const updateTables = tables => ({ type: UPDATE_TABLES, payload: tables});
 export const fetchTables = () => {
   return (dispatch) => {
     fetch('http://localhost:3131/tables')
@@ -24,7 +24,7 @@ export const fetchTables = () => {
   }
 };
 
-export const updateTable = payload => ({ type: UPDATE_TABLE, payload });
+export const updateTable = updatedTable => ({ type: UPDATE_TABLE, payload: updatedTable });
 export const updateTableRequest = (updatedTable, id) => {
   return(dispatch) => {
     const options = {
@@ -39,7 +39,7 @@ export const updateTableRequest = (updatedTable, id) => {
   }
 };
 
-const removeTable = payload => ({ type: REMOVE_TABLE, payload });
+const removeTable = removingTable => ({ type: REMOVE_TABLE, payload: removingTable });
 export const removeTableRequest = (removingTable) => {
   return(dispatch) => {
     const options = {
@@ -54,7 +54,7 @@ export const removeTableRequest = (removingTable) => {
   }
 };
 
-const addTable = payload => ({ type: ADD_TABLE, payload });
+const addTable = newTable => ({ type: ADD_TABLE, payload: newTable });
 export const addTableRequest = (id) => {
   return(dispatch) => {
     const newTable = {
