@@ -12,10 +12,8 @@ const TablesList = () => {
     <Container className={clsx('m-1', 'p-0')}>
       <h1 className={clsx('fs-2', 'my-3')}>All Tables</h1>
       <h2 className={clsx('opacity-50', 'fs-3', 'my-3', ((tables.length) > 0 ? 'visually-hidden' : ''))}>No tables</h2>
-      <Container className={clsx('my-3', 'mx-0', 'p-0')}>
-        <TableItem tables={tables} />
-        <AddTableForm tables={tables} />
-      </Container>
+      <TableItem tables={tables} />
+      <AddTableForm tables={tables} />
     </Container>
   );
 };
