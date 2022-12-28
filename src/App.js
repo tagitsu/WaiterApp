@@ -14,7 +14,7 @@ const App = () => {
   useEffect( () => dispatch(fetchTables()), [dispatch]);
 
   return(
-    <Container>
+    <Container className="h-100">
       <TopBar />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -1,39 +1,25 @@
 {
   "tables": [
     {
-      "status": "cleaning",
-      "guests": 0,
+      "status": "busy",
+      "guests": "3",
       "maxGuests": "4",
-      "bill": 0,
+      "bill": "56",
       "id": "1"
     },
     {
-      "status": "cleaning",
-      "guests": 0,
-      "maxGuests": 6,
-      "bill": 0,
+      "status": "reserved",
+      "guests": "5",
+      "maxGuests": "5",
+      "bill": 20,
       "id": "2"
     },
     {
-      "status": "reserved",
+      "status": "busy",
       "guests": "2",
-      "maxGuests": 3,
-      "bill": 20,
+      "maxGuests": "4",
+      "bill": "24",
       "id": "3"
-    },
-    {
-      "id": "6",
-      "status": "free",
-      "guests": 0,
-      "maxGuests": 0,
-      "bill": 0
-    },
-    {
-      "id": "7",
-      "status": "free",
-      "guests": 0,
-      "maxGuests": 0,
-      "bill": 0
     },
     {
       "id": "4",
@@ -44,13 +30,6 @@
     },
     {
       "id": "5",
-      "status": "free",
-      "guests": 0,
-      "maxGuests": 0,
-      "bill": 0
-    },
-    {
-      "id": "9",
       "status": "free",
       "guests": 0,
       "maxGuests": 0,

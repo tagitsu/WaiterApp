@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 const Home = () => {
   return (
-    <Container className={clsx('m-1', 'p-0', 'h-100')}>
+    <Container className={clsx('m-1', 'p-0')}>
       <TablesList />
     </Container>
   );
