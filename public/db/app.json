@@ -1,39 +1,32 @@
 {
   "tables": [
     {
-      "status": "busy",
-      "guests": "4",
-      "maxGuests": "4",
-      "bill": "74",
-      "id": "1"
-    },
-    {
-      "status": "reserved",
-      "guests": "5",
-      "maxGuests": "5",
-      "bill": 20,
-      "id": "2"
-    },
-    {
-      "status": "busy",
-      "guests": "2",
-      "maxGuests": "4",
-      "bill": "24",
-      "id": "3"
-    },
-    {
-      "id": "4",
+      "id": "1",
       "status": "free",
       "guests": 0,
       "maxGuests": 0,
       "bill": 0
     },
     {
-      "status": "busy",
-      "guests": "1",
-      "maxGuests": "3",
-      "bill": "12",
-      "id": "5"
+      "id": "2",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "3",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
+    },
+    {
+      "id": "5",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
     }
   ]
 }

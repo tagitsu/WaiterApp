@@ -1,6 +1,7 @@
 // selectors
 
 export const choosenTable = (tables, tableId) => {
+  console.log('choosen', tables, tableId);
   return tables.find(table => table.id === tableId);
 };
 
@@ -15,11 +16,13 @@ const ADD_TABLE = createActionName('ADD_TABLE');
 
 // action creators
 
-const updateTables = tables => ({ type: UPDATE_TABLES, payload: tables});
-export const fetchTables = () => {
+const updateTables = payload => ({ type: UPDATE_TABLES, payload});
+export const fetchTables = (setLoading) => {
+  setLoading(true);
   return (dispatch) => {
     fetch('http://localhost:3131/tables')
       .then(res => res.json())
+      .then(setLoading(false))
       .then(tables => dispatch(updateTables(tables)))
   }
 };
@@ -85,6 +88,9 @@ const tablesReducer = (statePart = [], action) => {
       return [...statePart, { id: statePart.length + 1, ...action.payload, }]
     case REMOVE_TABLE:
       return [...statePart, { ...action.payload }]
+    case ADD_TABLE:
+      return [...statePart, { ...action.payload }]
+  
     default:
       return statePart;
   }
