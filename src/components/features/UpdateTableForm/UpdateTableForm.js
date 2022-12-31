@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { updateTableRequest } from '../../../redux/tablesReducer';
+import { updateTableRequest } from '../../../redux/tablesRedux';
 import { Button, Row, Col, Form } from 'react-bootstrap';
 import clsx from 'clsx';
 
@@ -9,8 +9,8 @@ const UpdateTableForm = (props) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { tableId } = useParams();
 
+  const [ id, setId ] = useState(props.table.id);
   const [ status, setStatus ] = useState(props.table.status);
   const [ guests, setGuests ] = useState(props.table.guests);
   const [ maxGuests, setMaxGuests ] = useState(props.table.maxGuests);
@@ -41,12 +41,12 @@ const UpdateTableForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateTableRequest({ status, guests, maxGuests, bill }, tableId));
+    dispatch(updateTableRequest({ id, status, guests, maxGuests, bill }));
     navigate('/');
   };
 
   return(
-    <Form>
+    <Form onSubmit={(e) => handleSubmit(e)} >
     <Row className={clsx('mb-3', 'align-items-baseline')}>
       <Col className={clsx('col-2')}>
         <label htmlFor="status" className={clsx('form-label', 'fw-bold')}>Status:</label>

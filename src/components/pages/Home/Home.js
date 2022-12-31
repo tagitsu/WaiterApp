@@ -5,6 +5,7 @@ import LoadingPage from "../../views/LoadingPage/LoadingPage";
 
 const Home = (props) => {
 
+
   // // Inny sposób na loading page, 
   // // ale spinner pojawia się też gdy po prostu skasowane są wszytkie stoliki
   // const tables = useSelector( state => state.tables.length);

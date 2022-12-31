@@ -1,9 +1,19 @@
 // selectors
 
+export const getAllTables = (state) => state.tables;
+
 export const choosenTable = (tables, tableId) => {
-  console.log('choosen', tables, tableId);
-  return tables.find(table => table.id === tableId);
+  console.log('choosenTable', tables, tableId);
+  console.log('co zwraca choosenTable', tables.find(table => table.id === tableId));
+  return tables.find(table => table.id === tableId)
+  // [FIX IT] 
+  // co zwraca choosenTable wywołany w komponencie TableView?
+  // gdy klikam w button Show more w TablesList -> obiekt - wybrany stolik
+  // gdy wpisuję adres do stolika w pasku adresu -> funkcja się nie wykonuje, bo jako tables dostaje pustą tablicę
 };
+
+export const getTableById = ({ tables }, tableId) =>
+  tables.find((table) => table.id === tableId);
 
 // action names
 
@@ -27,9 +37,11 @@ export const fetchTables = (setLoading) => {
   }
 };
 
-export const updateTable = updatedTable => ({ type: UPDATE_TABLE, payload: updatedTable });
-export const updateTableRequest = (updatedTable, id) => {
+export const updateTable = payload => ({ type: UPDATE_TABLE, payload });
+export const updateTableRequest = (updatedTable) => {
+
   return(dispatch) => {
+    console.log('updatingTable', updatedTable);
     const options = {
       method: 'PUT',
       headers: {
@@ -37,27 +49,30 @@ export const updateTableRequest = (updatedTable, id) => {
       },
       body: JSON.stringify(updatedTable),
     };
-    fetch(`http://localhost:3131/tables/${id}`, options)
+    fetch(`http://localhost:3131/tables/${updatedTable.id}`, options)
       .then(() => dispatch(updateTable(updatedTable)))
   }
 };
 
-const removeTable = removingTable => ({ type: REMOVE_TABLE, payload: removingTable });
-export const removeTableRequest = (removingTable) => {
+const removeTable = payload => ({ type: REMOVE_TABLE, payload });
+export const removeTableRequest = (removingTableId) => {
   return(dispatch) => {
+    console.log('removingTableId - argument', removingTableId);
+    const removingId = { removingTableId };
+    console.log('removing Id', removingId)
     const options = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(removingTable),
+      body: JSON.stringify(removingId),
     };
-    fetch(`http://localhost:3131/tables/${removingTable.id}`, options)
-      .then(() => dispatch(removeTable(removingTable)))
+    fetch(`http://localhost:3131/tables/${removingTableId}`, options)
+      .then(() => dispatch(removeTable(removingId)))
   }
 };
 
-const addTable = newTable => ({ type: ADD_TABLE, payload: newTable });
+const addTable = payload => ({ type: ADD_TABLE, payload });
 export const addTableRequest = (id) => {
   return(dispatch) => {
     const newTable = {
@@ -83,11 +98,11 @@ export const addTableRequest = (id) => {
 const tablesReducer = (statePart = [], action) => {
   switch(action.type) {
     case UPDATE_TABLES: 
-      return [...action.payload]
+      return [ ...action.payload ]
     case UPDATE_TABLE:
-      return [...statePart, { id: statePart.length + 1, ...action.payload, }]
+      return statePart.map((table) => table.id === action.payload.id ? { ...table, ...action.payload} : table)
     case REMOVE_TABLE:
-      return [...statePart, { ...action.payload }]
+      return statePart.filter((table) => table.id !== action.payload);
     case ADD_TABLE:
       return [...statePart, { ...action.payload }]
   

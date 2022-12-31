@@ -4,10 +4,13 @@ import clsx from 'clsx';
 import AddTableForm from '../AddTableForm/AddTableForm';
 import TableItem from '../TableItem/TableItem';
 import LoadingPage from "../../views/LoadingPage/LoadingPage";
+import { getAllTables } from "../../../redux/tablesRedux";
+
 
 const TablesList = () => {
 
-  const tables = useSelector(state => state.tables);
+  const tables = useSelector(state => getAllTables(state));
+  console.log('tables list - ściągam wszystkie stoliki', tables);
 
   return(
     <Container className={clsx('m-1', 'p-0')}>

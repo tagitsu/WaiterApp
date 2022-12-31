@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { removeTableRequest } from "../../../redux/tablesReducer";
+import { removeTableRequest } from "../../../redux/tablesRedux";
 import { useDispatch } from "react-redux";
 import { Button, Row, Col } from 'react-bootstrap';
 import clsx from 'clsx';
@@ -9,11 +9,11 @@ const TableItem = (props) => {
   const navigate = useNavigate();
 
   const tables = props.tables;
+  console.log('table item - tables', tables);
 
-  const handleRemove = (e, removingTable) => {
+  const handleRemove = (e, removingTableId) => {
     e.preventDefault();
-    dispatch(removeTableRequest(removingTable));
-    navigate('/');
+    dispatch(removeTableRequest(removingTableId));
   };
 
   return(
@@ -27,7 +27,7 @@ const TableItem = (props) => {
             <Button>
               <Link to={`/table/${table.id}`} className={clsx('text-light', 'text-decoration-none')}>Show more</Link>
             </Button>
-            <Button className={clsx('btn-danger')} onClick={(e) => handleRemove(e, table)}>X</Button>
+            <Button className={clsx('btn-danger')} onClick={(e) => handleRemove(e, table.id)}>X</Button>
           </Col>
         </Row>
     )}
