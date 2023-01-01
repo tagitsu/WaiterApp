@@ -43,7 +43,6 @@ export const updateTable = payload => ({ type: UPDATE_TABLE, payload });
 export const updateTableRequest = (updatedTable) => {
 
   return(dispatch) => {
-    console.log('updatingTable', updatedTable);
     const options = {
       method: 'PUT',
       headers: {
@@ -57,11 +56,9 @@ export const updateTableRequest = (updatedTable) => {
 };
 
 const removeTable = payload => ({ type: REMOVE_TABLE, payload });
-export const removeTableRequest = (removingTableId) => {
+export const removeTableRequest = (id) => {
   return(dispatch) => {
-    console.log('removingTableId - argument', removingTableId);
-    const removingId = { removingTableId };
-    console.log('removing Id', removingId)
+    const removingId = { id };
     const options = {
       method: 'DELETE',
       headers: {
@@ -69,8 +66,8 @@ export const removeTableRequest = (removingTableId) => {
       },
       body: JSON.stringify(removingId),
     };
-    fetch(`${API_URL}tables/${removingTableId}`, options)
-      .then(() => dispatch(removeTable(removingId)))
+    fetch(`${API_URL}tables/${id}`, options)
+      .then(() => dispatch(removeTable(id)))
   }
 };
 
