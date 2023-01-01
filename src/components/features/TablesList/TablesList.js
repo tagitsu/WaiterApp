@@ -10,9 +10,9 @@ import LoadingPage from "../../views/LoadingPage/LoadingPage";
 const TablesList = (props) => {
 
   const tables = useSelector(state => getAllTables(state));
-  const isLoading = props.loading;
+  
 
-  if(isLoading) {
+  if(props.loading) {
     return(
       <LoadingPage />
     );

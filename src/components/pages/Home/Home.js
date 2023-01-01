@@ -1,7 +1,6 @@
 import TablesList from "../../features/TablesList/TablesList";
 import { Container } from 'react-bootstrap';
 import clsx from 'clsx';
-import LoadingPage from "../../views/LoadingPage/LoadingPage";
 
 const Home = (props) => {
 
