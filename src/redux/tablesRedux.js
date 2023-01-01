@@ -1,3 +1,5 @@
+import { API_URL } from "../config";
+
 // selectors
 
 export const getAllTables = (state) => state.tables;
@@ -30,7 +32,7 @@ const updateTables = payload => ({ type: UPDATE_TABLES, payload});
 export const fetchTables = (setLoading) => {
   setLoading(true);
   return (dispatch) => {
-    fetch('http://localhost:3131/tables')
+    fetch(`${API_URL}tables`)
       .then(res => res.json())
       .then(setLoading(false))
       .then(tables => dispatch(updateTables(tables)))
@@ -49,7 +51,7 @@ export const updateTableRequest = (updatedTable) => {
       },
       body: JSON.stringify(updatedTable),
     };
-    fetch(`http://localhost:3131/tables/${updatedTable.id}`, options)
+    fetch(`${API_URL}tables/${updatedTable.id}`, options)
       .then(() => dispatch(updateTable(updatedTable)))
   }
 };
@@ -67,7 +69,7 @@ export const removeTableRequest = (removingTableId) => {
       },
       body: JSON.stringify(removingId),
     };
-    fetch(`http://localhost:3131/tables/${removingTableId}`, options)
+    fetch(`${API_URL}tables/${removingTableId}`, options)
       .then(() => dispatch(removeTable(removingId)))
   }
 };
@@ -89,7 +91,7 @@ export const addTableRequest = (id) => {
       },
       body: JSON.stringify(newTable),
     };
-    fetch(`http://localhost:3131/tables/`, options)
+    fetch(`${API_URL}tables`, options)
     .then((res) => res.json())
     .then((newTable) => dispatch(addTable(newTable)));
   }
