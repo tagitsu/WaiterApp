@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { updateTableRequest } from '../../../redux/tablesRedux';
 import { Button, Row, Col, Form } from 'react-bootstrap';
 import clsx from 'clsx';
@@ -10,7 +10,7 @@ const UpdateTableForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [ id, setId ] = useState(props.table.id);
+  const [ id ] = useState(props.table.id);
   const [ status, setStatus ] = useState(props.table.status);
   const [ guests, setGuests ] = useState(props.table.guests);
   const [ maxGuests, setMaxGuests ] = useState(props.table.maxGuests);

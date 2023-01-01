@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { removeTableRequest } from "../../../redux/tablesRedux";
 import { useDispatch } from "react-redux";
 import { Button, Row, Col } from 'react-bootstrap';
@@ -6,10 +6,8 @@ import clsx from 'clsx';
 
 const TableItem = (props) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const tables = props.tables;
-  console.log('table item - tables', tables);
 
   const handleRemove = (e, removingTableId) => {
     e.preventDefault();

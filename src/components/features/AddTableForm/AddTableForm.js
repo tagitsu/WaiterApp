@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { addTableRequest } from "../../../redux/tablesRedux";
 import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
 
 
 const AddTableForm = (props) => {
@@ -19,7 +18,7 @@ const AddTableForm = (props) => {
     {props.tables.map(table => tablesNumbers.push(table.id))}
     if(e.target.value !== '') {
       const choosenNumber = tablesNumbers.filter(element => element.includes(e.target.value));
-      if(!choosenNumber.length) {
+      if(!choosenNumber.length && !isNaN(parseInt(e.target.value))) {
         setValidated(true);
       } else {
         setValidated(false);
@@ -32,7 +31,6 @@ const AddTableForm = (props) => {
 
   const handleAdd = (e, id) => {
     e.preventDefault();
-    console.log('handle add');
     dispatch(addTableRequest(id));
   };
 
@@ -51,7 +49,7 @@ const AddTableForm = (props) => {
         required
         />
         <div className="invalid-feedback">
-          Select a table number that is not currently in use
+          Select a table <span className="text-decoration-underline" >number</span> that is not currently in use
         </div>
       </Col>
       <Col>

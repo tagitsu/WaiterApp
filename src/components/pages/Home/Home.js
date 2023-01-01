@@ -21,18 +21,12 @@ const Home = (props) => {
   // Drugi sposób, gdy stała loading (App) będzie miała wartość true zwraca LoadingPage, 
   // gdy false domyślą zawartość komponentu
   console.log('props loading', props.loading);
-  if(props.loading) {
-    
+  
     return(
-      <LoadingPage />
-    );
-  } else {
-      return(
-      <Container className={clsx('m-1', 'p-0')}>
-        <TablesList />
-      </Container>
-    );
-    }
+    <Container className={clsx('m-1', 'p-0')}>
+      <TablesList loading={props.loading} />
+    </Container>
+  );
 };
 
 export default Home;

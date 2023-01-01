@@ -12,9 +12,7 @@ import Container from 'react-bootstrap/Container';
 const App = () => {
   const dispatch = useDispatch();
   const [ loading, setLoading ] = useState(false);
-  console.log('app loading', loading);
-  // export const API_URL = process.env.NODE_ENV === 'production' ?  '/api' : 'http://localhost:3131/api';
-  useEffect(() => {console.log('effect fetchTables runs'); dispatch(fetchTables(setLoading))}, [dispatch]);
+  useEffect(() => {dispatch(fetchTables(setLoading))}, [dispatch]);
 
   return(
     <Container className="h-100">
@@ -22,7 +20,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home loading={loading} />} />
           <Route path="/table/:tableId" element={<TableView />} />
-          <Route path="*" element={<NonFound />} />
+          <Route path="/*" element={<NonFound />} />
         </Routes>
       <Footer />
     </Container>

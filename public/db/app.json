@@ -9,10 +9,10 @@
     },
     {
       "id": "2",
-      "status": "busy",
+      "status": "reserved",
       "guests": "2",
       "maxGuests": "2",
-      "bill": "13"
+      "bill": 20
     },
     {
       "id": "3",
@@ -34,6 +34,20 @@
       "guests": "3",
       "maxGuests": "3",
       "bill": 20
+    },
+    {
+      "id": "6",
+      "status": "busy",
+      "guests": "3",
+      "maxGuests": "5",
+      "bill": "75"
+    },
+    {
+      "id": "7",
+      "status": "free",
+      "guests": 0,
+      "maxGuests": 0,
+      "bill": 0
     }
   ]
 }

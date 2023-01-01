@@ -4,14 +4,10 @@ import { choosenTable } from '../../../redux/tablesRedux';
 import { Container } from 'react-bootstrap';
 import clsx from 'clsx';
 import UpdateTableForm from '../../features/UpdateTableForm/UpdateTableForm';
-import { useState } from 'react';
 
 const TableView = () => {
 
-  const stan = useSelector(state => state);
-  console.log('state TableView', stan);
   const { tableId } = useParams();
-  console.log('table view ID - UseParams zwraca obiekt z id stolika', tableId);
   
   const table = useSelector(state => choosenTable(state.tables, tableId));
   
