@@ -5,7 +5,7 @@ import { API_URL } from "../config";
 export const getAllTables = (state) => state.tables;
 
 export const choosenTable = (tables, tableId) => {
-  console.log('choosenTable', tables, tableId);
+  console.log('choosenTable - argumenty', tables, tableId);
   console.log('co zwraca choosenTable', tables.find(table => table.id === tableId));
   return tables.find(table => table.id === tableId)
   // [FIX IT] 
